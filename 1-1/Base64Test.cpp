@@ -1,12 +1,11 @@
 #include <iostream>
-#include <assert.h>
 #include "Base64.h"
 
 void testHexToBase64(string *toEncode, string *expectedBase64) {
 	string* base64 = Base64::convertHexStringToBase64(toEncode);
 	if(*expectedBase64 != *base64) {
 		cout << "Expected:" << *expectedBase64 << ":Actual:" << *base64 << endl;
-		assert(0);	
+		exit(1);
 	}
 	delete base64;
 }
