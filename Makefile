@@ -1,18 +1,33 @@
 CC=g++
 CFLAGS=-c -Wall -g
 LDFLAGS=
-#SOURCES=Base64.cpp Base64Test.cpp TODO dumb to do this - figure out how to do multiple main methods
-#SOURCES=Hex.cpp HexTest.cpp TODO
-SOURCES=Base64.cpp Hex.cpp Challenge_1_1.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
-#EXECUTABLE=Base64Test.out TODO dumb to do this - figure out how to do multiple main methods
-#EXECUTABLE=HexTest.out TODO
-EXECUTABLE=Challenge_1_1.out
 
-all: $(SOURCES) $(EXECUTABLE)
+BASE64_TEST_SOURCES=Base64.cpp Base64Test.cpp
+HEX_TEST_SOURCES=Hex.cpp HexTest.cpp
+CHALLENGE_1_1_SOURCES=Base64.cpp Hex.cpp Challenge_1_1.cpp
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+BASE64_TEST_OBJECTS=$(BASE64_TEST_SOURCES:.cpp=.o)
+HEX_TEST_OBJECTS=$(HEX_TEST_SOURCES:.cpp=.o)
+CHALLENGE_1_1_OBJECTS=$(CHALLENGE_1_1_SOURCES:.cpp=.o)
+
+BASE64_TEST_EXECUTABLE=Base64Test.out
+HEX_TEST_EXECUTABLE=HexTest.out
+CHALLENGE_1_1_EXECUTABLE=Challenge_1_1.out
+
+base64Test: $(BASE64_TEST_SOURCES) $(BASE64_TEST_EXECUTABLE)
+
+hexTest: $(HEX_TEST_SOURCES) $(HEX_TEST_EXECUTABLE)
+
+challenge_1_1: $(CHALLENGE_1_1_SOURCES) $(CHALLENGE_1_1_EXECUTABLE)
+
+$(BASE64_TEST_EXECUTABLE): $(BASE64_TEST_OBJECTS)
+	$(CC) $(LDFLAGS) $(BASE64_TEST_OBJECTS) -o $@
+	
+$(HEX_TEST_EXECUTABLE): $(HEX_TEST_OBJECTS)
+	$(CC) $(LDFLAGS) $(HEX_TEST_OBJECTS) -o $@	
+	
+$(CHALLENGE_1_1_EXECUTABLE): $(CHALLENGE_1_1_OBJECTS)
+	$(CC) $(LDFLAGS) $(CHALLENGE_1_1_OBJECTS) -o $@	
 
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@

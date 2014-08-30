@@ -25,5 +25,5 @@ int main(int argc, char** argv) {
 		cout << "Expected:" << expectedBase64 << ":Actual:" << *actualBase64 << endl;
 		exit(1);
 	}
-	cout << "Success" << endl;	
+	cout << "Chalenge 1-1 Success" << endl;	
 }

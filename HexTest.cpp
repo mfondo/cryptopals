@@ -32,5 +32,5 @@ int main(int argc, char** argv) {
 	testConvert(new string("8D7"), expectedBytes3, 2);
 	char expectedBytes4[2] = {151, 215};
 	testConvert(new string("97D7"), expectedBytes4, 2);
-	cout << "Success" << endl;
+	cout << "Hex Test Success" << endl;
 }

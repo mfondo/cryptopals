@@ -22,5 +22,5 @@ int main(int argc, char** argv) {
 	testHexToBase64(new string("abcd"), new string("YWJjZA=="));
 	testHexToBase64(new string("abcde"), new string("YWJjZGU="));
 	testHexToBase64(new string("abcdef"), new string("YWJjZGVm"));
-	cout << "Success" << endl;
+	cout << "Base64 Test Success" << endl;
 }
