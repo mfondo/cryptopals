@@ -1,5 +1,7 @@
 #include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "Xor.h"
 #include "Hex.h"
 
@@ -20,7 +22,10 @@ int main(int argc, char** argv) {
 	Xor::xorBytes(s1Bytes, s2Bytes, s3Bytes, s2BytesLength);
 	string actualResult = string(s3Bytes, s1BytesLength);
 	string expectedResult = string("746865206b696420646f6e277420706c6179");
-	if(expectedResult != actualResult) {
+	char *expectedResultBytes;
+	unsigned int expectedResultBytesLength;
+	Hex::convertHexStringToBytes(&expectedResult, &expectedResultBytes, &expectedResultBytesLength);
+	if(memcmp(expectedResultBytes, &s3Bytes, (size_t)s1BytesLength) != 0) {
 		cout << "Expected:" << expectedResult << ":Actual:" << actualResult << endl;
 		exit(1);
 	}
