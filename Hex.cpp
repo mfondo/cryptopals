@@ -19,6 +19,23 @@ char Hex::convertHexCharToByte(char c) {
 	return byte;
 }
 
+char Hex::convertByteToHexChar(char byte, bool upperCaseChars) {
+	char c = byte;
+	if(byte >= 0 && byte <= 9) {
+		c = c + '0';
+	} else if(byte >= 10 && byte <= 0xF) {
+		c = c - 10;
+		if(upperCaseChars) {
+			c += 'A';
+		} else {
+			c += 'a';
+		}
+	} else {
+		throw invalid_argument("Invalid hex byte");
+	}
+	return c;
+}
+
 void Hex::convertHexStringToBytes(string *hexString, char **bytes, unsigned int *bytesLength) {
 	int hexStringLength = hexString->length();
 	int tmpBytesLength;
@@ -45,4 +62,30 @@ void Hex::convertHexStringToBytes(string *hexString, char **bytes, unsigned int 
 		byte |= (cHighBits << 4);
 		(*bytes)[i / 2] = byte;
 	}
+}
+
+string * Hex::convertBytesToHexString(char *bytes, unsigned int bytesLength, bool upperCaseChars) {
+	string *ret = new string();
+	char byte, byteHighBits, byteLowBits;
+	bool foundLeadingNonZero = false;
+	for(int i = 0; i < bytesLength; i++) {
+		byte = bytes[i];
+		byteHighBits = byte >> 4;
+		byteHighBits = convertByteToHexChar(byteHighBits, upperCaseChars);
+		byteLowBits = byte & 0xF;
+		byteLowBits = convertByteToHexChar(byteLowBits, upperCaseChars);
+		if(byteHighBits != '0') {
+			foundLeadingNonZero = true;
+		}
+		if(foundLeadingNonZero) {
+			*ret += byteHighBits;
+		}
+		if(byteLowBits != '0') {
+			foundLeadingNonZero = true;
+		}
+		if(foundLeadingNonZero) {
+			*ret += byteLowBits;
+		}		
+	}
+	return ret;
 }

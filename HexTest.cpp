@@ -19,18 +19,39 @@ void testConvert(string *hexString, char *expectedBytes, unsigned int expectedBy
 			exit(1);
 		}
 	}	
-	delete hexString;
 	free(actualBytes);
 }
 
+void testStringsEqual(string *expectedStr, string *actualStr) {
+	if(*expectedStr != *actualStr) {
+		cout << "Expected string:" << *expectedStr << ":Actual string:" << *actualStr << endl;
+		exit(1);
+	}
+}
+
 int main(int argc, char** argv) {
+	string s1 = string("f");
+	string s2 = string("FF");
+	string s3 = string("8D7");
+	string s4 = string("97D7");
+
 	char expectedBytes1[1] = {15};
-	testConvert(new string("f"), expectedBytes1, 1);
+	testConvert(&s1, expectedBytes1, 1);
 	char expectedBytes2[1] = {255};
-	testConvert(new string("FF"), expectedBytes2, 1);
+	testConvert(&s2, expectedBytes2, 1);
 	char expectedBytes3[2] = {8, 215};
-	testConvert(new string("8D7"), expectedBytes3, 2);
+	testConvert(&s3, expectedBytes3, 2);
 	char expectedBytes4[2] = {151, 215};
-	testConvert(new string("97D7"), expectedBytes4, 2);
+	testConvert(&s4, expectedBytes4, 2);
+	
+	string *actualStr = Hex::convertBytesToHexString(expectedBytes1, 1, false);
+	testStringsEqual(&s1, actualStr);	
+	actualStr = Hex::convertBytesToHexString(expectedBytes2, 1, true);
+	testStringsEqual(&s2, actualStr);	
+	actualStr = Hex::convertBytesToHexString(expectedBytes3, 2, true);
+	testStringsEqual(&s3, actualStr);
+	actualStr = Hex::convertBytesToHexString(expectedBytes4, 2, true);
+	testStringsEqual(&s4, actualStr);
+	
 	cout << "Hex Test Success" << endl;
 }
