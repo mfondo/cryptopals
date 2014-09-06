@@ -70,7 +70,7 @@ string * Hex::convertBytesToHexString(char *bytes, unsigned int bytesLength, boo
 	bool foundLeadingNonZero = false;
 	for(int i = 0; i < bytesLength; i++) {
 		byte = bytes[i];
-		byteHighBits = byte >> 4;
+		byteHighBits = ((unsigned char)byte) >> 4;
 		byteHighBits = convertByteToHexChar(byteHighBits, upperCaseChars);
 		byteLowBits = byte & 0xF;
 		byteLowBits = convertByteToHexChar(byteLowBits, upperCaseChars);
