@@ -1,4 +1,3 @@
-#include <iostream> //TODO remove
 #include <string>
 #include <stdio.h>
 #include <ctype.h>
@@ -11,16 +10,14 @@ float CharFrequency::commonFrequencyPercentList[] = {0.0812, 0.0149, 0.0271, 0.0
 
 float CharFrequency::calculateDistanceFromCommonFrequency(string *s) {
 	float frequencyTable[26];
-	memset(&frequencyTable, 0, 26);
+	memset(&frequencyTable, 0, 26 * sizeof(float));
 	int sLength = s->length();
-	cout << "sLength:" << sLength << endl;
 	char c;
 	const char *sChars = s->c_str();
 	for(int i = 0; i < sLength; i++) {
 		c = sChars[i];
 		c = tolower(c);
 		unsigned char index = c - 'a';
-		//frequencyTable[c - 'a']++;
 		frequencyTable[index] = frequencyTable[index] + 1;
 	}
 	float ret = 0;
