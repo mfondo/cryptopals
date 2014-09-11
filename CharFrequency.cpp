@@ -14,11 +14,14 @@ float CharFrequency::calculateDistanceFromCommonFrequency(string *s) {
 	int sLength = s->length();
 	char c;
 	const char *sChars = s->c_str();
+	unsigned char index;
 	for(int i = 0; i < sLength; i++) {
 		c = sChars[i];
 		c = tolower(c);
-		unsigned char index = c - 'a';
-		frequencyTable[index] = frequencyTable[index] + 1;
+		if(c >= 'a' && c <= 'z') {//ignore non letter characters
+			index = c - 'a';
+			frequencyTable[index] = frequencyTable[index] + 1;
+		}		
 	}
 	float ret = 0;
 	float tmp;

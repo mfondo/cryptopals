@@ -16,13 +16,11 @@ int main(int argc, char** argv) {
 	float minFrequencyDistance = FLT_MAX;
 	string *minFrequencyDistanceStr = NULL;
 	float frequencyDistance;
-	for(char c = CHAR_MIN; c <= CHAR_MAX; c++) {	
+	for(char c = CHAR_MIN; c < CHAR_MAX; c++) {	
 		Xor::xorBytes(encryptedBytes, c, decryptedBytes, encryptedBytesLength);
-		//decryptedStr = Hex::convertBytesToHexString(decryptedBytes, encryptedBytesLength, false);TODO
 		decryptedStr = new string(decryptedBytes, encryptedBytesLength);
-		cout << "Decrypted Length:" << decryptedStr->length() << endl;
-		//cout << "Decrypted:" << *decryptedStr << endl;TODO
 		frequencyDistance = CharFrequency::calculateDistanceFromCommonFrequency(decryptedStr);
+		cout << "Distance:" << frequencyDistance << "str:" << *decryptedStr << endl;
 		if(frequencyDistance < minFrequencyDistance) {
 			if(minFrequencyDistanceStr != NULL) {
 				delete minFrequencyDistanceStr;
@@ -35,5 +33,5 @@ int main(int argc, char** argv) {
 	}
 	cout << "Min Frequency Distance:" << minFrequencyDistance << ":" << *minFrequencyDistanceStr << endl;
 	free(decryptedBytes);	
-	cout << "Hex Test Success" << endl;//TODO wrong
+	cout << "Challenge 1-3 Success" << endl;//TODO wrong
 }
