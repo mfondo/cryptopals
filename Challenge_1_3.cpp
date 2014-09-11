@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 	for(char c = CHAR_MIN; c < CHAR_MAX; c++) {	
 		Xor::xorBytes(encryptedBytes, c, decryptedBytes, encryptedBytesLength);
 		decryptedStr = new string(decryptedBytes, encryptedBytesLength);
-		frequencyDistance = CharFrequency::calculateDistanceFromCommonFrequency(decryptedStr);
+		frequencyDistance = CharFrequency::calculateDistanceFromCommonFrequency(decryptedStr, 0.3f);
 		orderedFrequencyDistanceMap.insert(std::pair<float, string*>(frequencyDistance, decryptedStr));
 		if(orderedFrequencyDistanceMap.size() > maxMapSize) {
 			iter = orderedFrequencyDistanceMap.end();
@@ -39,6 +39,7 @@ int main(int argc, char** argv) {
 	for(iter = orderedFrequencyDistanceMap.begin(); iter != orderedFrequencyDistanceMap.end(); iter++) {
 		cout << "key:" << (*iter).first << ":val:" << *((*iter).second) << endl;
 	}
-	free(decryptedBytes);	
+	free(decryptedBytes);
+	//should have printed out "Cooking MC's like a pound of bacon"
 	cout << "Challenge 1-3 Success" << endl;
 }

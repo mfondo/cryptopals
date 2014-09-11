@@ -9,21 +9,27 @@ using namespace std;
 float CharFrequency::commonFrequencyPercentList[] = {0.0812, 0.0149, 0.0271, 0.0432, 0.1202, 0.0230, 0.0203, 0.0592, 0.0731, 0.0010, 0.0069, 0.0398, 0.0261, 0.0695, 0.0768, 0.0182, 0.0011, 0.0602, 0.0628, 0.0910, 0.0288, 0.0111, 0.0209, 0.0017, 0.0211, 0.0007};
 
 float CharFrequency::calculateDistanceFromCommonFrequency(string *s) {
+	return calculateDistanceFromCommonFrequency(s, 0.1f);
+}
+
+float CharFrequency::calculateDistanceFromCommonFrequency(string *s, float invalidCharPenalty) {
 	float frequencyTable[26];
 	memset(&frequencyTable, 0, 26 * sizeof(float));
 	int sLength = s->length();
 	char c;
 	const char *sChars = s->c_str();
 	unsigned char index;
+	float ret = 0;
 	for(int i = 0; i < sLength; i++) {
 		c = sChars[i];
 		c = tolower(c);
 		if(c >= 'a' && c <= 'z') {//ignore non letter characters
 			index = c - 'a';
 			frequencyTable[index] = frequencyTable[index] + 1;
-		}		
+		} else if (c < '0' && c > '9'){
+			ret += invalidCharPenalty;
+		}
 	}
-	float ret = 0;
 	float tmp;
 	for(int i = 0; i < 26; i++) {
 		tmp = frequencyTable[i];

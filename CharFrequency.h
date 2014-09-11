@@ -12,6 +12,7 @@ class CharFrequency {
 
 	public:
 		float static calculateDistanceFromCommonFrequency(string *s);
+		float static calculateDistanceFromCommonFrequency(string *s, float invalidCharPenalty);		
 };
 
 #endif
