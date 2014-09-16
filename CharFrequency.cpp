@@ -38,3 +38,34 @@ float CharFrequency::calculateDistanceFromCommonFrequency(string *s, float inval
 	}
 	return ret;
 }
+
+//TODO doing a histogram of word length would be even better
+float CharFrequency::calculateAverageWordLength(string *s) {
+	unsigned int wordLengthTotal = 0;
+	unsigned int wordCnt = 0;
+	bool startCounting = false;
+	unsigned int currentWordCnt = 0;
+	const char *sChars = s->c_str();
+	char c;
+	for(int i = 0; i < s->length(); i++) {
+		c = sChars[i];
+		if(c == ' ' || c == '\t' || c == '\n' || c == '\r') {
+			if(currentWordCnt > 0) {
+				wordLengthTotal += currentWordCnt;
+				wordCnt++;
+				currentWordCnt = 0;
+			}
+			startCounting = false;
+		} else {
+			if(!startCounting) {
+				startCounting = true;				
+			}
+			currentWordCnt++;
+		}
+	}
+	if(currentWordCnt > 0) {
+		wordLengthTotal += currentWordCnt;
+		wordCnt++;
+	}
+	return ((float)wordLengthTotal) / ((float)wordCnt);
+}

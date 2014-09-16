@@ -1,6 +1,7 @@
 #include <iostream>
 #include <climits>
 #include <cfloat>
+#include <cmath>
 #include "Hex.h"
 #include "Xor.h"
 #include <map>
@@ -21,6 +22,7 @@ int main(int argc, char** argv) {
 	char *decryptedBytes = (char *)malloc(encryptedBytesLength);
 	string *decryptedStr;
 	float frequencyDistance;
+	float avgWordLength;
 	const int maxMapSize = 10;//adjust as necessary if top maxMapSize results does not contain correct decrypted string
 	std::multimap<float, string*, FloatCompare> orderedFrequencyDistanceMap;
 	std::multimap<float, string*>::iterator iter;
@@ -28,6 +30,10 @@ int main(int argc, char** argv) {
 		Xor::xorBytes(encryptedBytes, c, decryptedBytes, encryptedBytesLength);
 		decryptedStr = new string(decryptedBytes, encryptedBytesLength);
 		frequencyDistance = CharFrequency::calculateDistanceFromCommonFrequency(decryptedStr, 0.3f);
+		avgWordLength = CharFrequency::calculateAverageWordLength(decryptedStr);
+		if(abs(avgWordLength - 5) < 2) {
+			frequencyDistance -= 0.05;//give a boost if word length looks close to 5, which is the average english word length
+		}
 		orderedFrequencyDistanceMap.insert(std::pair<float, string*>(frequencyDistance, decryptedStr));
 		if(orderedFrequencyDistanceMap.size() > maxMapSize) {
 			iter = orderedFrequencyDistanceMap.end();
